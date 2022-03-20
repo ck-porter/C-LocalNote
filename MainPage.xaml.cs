@@ -50,6 +50,7 @@ namespace LocalNote
             ContentBox.IsReadOnly = true;
             SaveIcon.IsEnabled = false;
             Edit.IsEnabled = true;
+            Delete.IsEnabled = true;
 
         }
 
@@ -60,6 +61,7 @@ namespace LocalNote
             SaveIcon.IsEnabled = true;
             Edit.IsEnabled = false;
             ContentBox.IsReadOnly = false;
+            Delete.IsEnabled = false;
 
         }
 
@@ -70,6 +72,7 @@ namespace LocalNote
             SaveIcon.IsEnabled = true;
             Edit.IsEnabled = false;
             ContentBox.IsReadOnly = false;   
+            Delete.IsEnabled= false;
 
         }
 

@@ -80,7 +80,7 @@ namespace LocalNote.Commands
                                               
                              await deletedDialog.ShowAsync();                                   
                                                     
-                        }                
+                        }              
                                                       
                 }
             }
