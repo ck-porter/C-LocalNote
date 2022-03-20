@@ -62,22 +62,6 @@ namespace LocalNote.ViewModels
 
         }
 
-
-        //private List<NoteModel> _allNotes;
-
-        ////create a collection 
-        //public ObservableCollection<NoteModel> Notes { get; set; }
-
-        //public SaveCommand SaveCommand { get; }
-        //public EditCommand EditCommand { get; }
-        //public AddCommand AddCommand { get; }
-
-
-        ////to bind to UI
-        //public string vmContent { get; set; } 
-        //public string vmTitle { get; set; }
-
-
         private NoteModel _selectedNote;
 
         public NoteModel SelectedNote
@@ -207,6 +191,8 @@ namespace LocalNote.ViewModels
             //Notes.Clear();
 
             //_allNotes.RemoveAll();
+            notesRepo.loadFiles(this);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
 
         }
 

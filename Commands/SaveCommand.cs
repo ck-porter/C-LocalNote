@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace LocalNote.Commands
@@ -61,7 +63,6 @@ namespace LocalNote.Commands
             SaveNoteDialog saveDialog = new SaveNoteDialog();
 
             //this forces the program to wait until the dialog box is complete
-
             ContentDialogResult result = await saveDialog.ShowAsync();   //store the button value into result
 
             string newContent = _noteViewModel.getContents();
@@ -70,29 +71,68 @@ namespace LocalNote.Commands
                 if (result == ContentDialogResult.Primary) //primary is the save button on the dialog box
                 {
                     //do the save using windows storage
+                    bool fileAlreadyExists = false;
 
-                    try
+                    if (fileAlreadyExists == false) 
                     {
-                        Repositories.NotesRepo.SaveNameDaysToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
 
-                        ContentDialog savedDialog = new ContentDialog()
+                        //check to make sure there isn't a file with that name already
+                        string path = ApplicationData.Current.LocalFolder.Path;
+
+                        DirectoryInfo dinfo = new DirectoryInfo(@path);
+                        FileInfo[] Files = dinfo.GetFiles("*");
+
+                        //load in the files already existing
+                        foreach (FileInfo file in Files)
                         {
+                            string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+                            if (title == saveDialog.UserNote)
+                            {
+                                ContentDialog savedDialog = new ContentDialog()
+                                {
 
 
-                            Content = "Note saved successfully to file",
-                            Title = "Save Succesful",
-                            PrimaryButtonText = "Ok"
-                        };
-                        await savedDialog.ShowAsync();
+                                    Content = "Sorry, a note with that name already exists! Try again",
+                                    Title = "Save Unsuccesful",
+                                    PrimaryButtonText = "Ok"
+                                };
+                                await savedDialog.ShowAsync();       
+                                fileAlreadyExists = true;
 
-
+                            }
+                        }
                     }
-                    catch (Exception ex)
+
+                    //if there is no file with that name already, then do a save
+                    if (fileAlreadyExists == false) 
                     {
-                        Debug.WriteLine("Error when attempting to save to file");
+
+                        try
+                        {
+                            Repositories.NotesRepo.SaveNameDaysToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
+
+                            ContentDialog savedDialog = new ContentDialog()
+                            {
+
+
+                                Content = "Note saved successfully to file",
+                                Title = "Save Succesful",
+                                PrimaryButtonText = "Ok"
+                            };
+                            await savedDialog.ShowAsync();
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Error when attempting to save to file");
+                        }
+
+                        _noteViewModel.createNewNote(saveDialog.UserNote);
+
                     }
 
-                    _noteViewModel.createNewNote(saveDialog.UserNote);
+                  
                 }
 
             }
