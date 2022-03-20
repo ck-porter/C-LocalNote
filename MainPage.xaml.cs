@@ -16,13 +16,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+
 
 namespace LocalNote
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+ 
     public sealed partial class MainPage : Page
     {
         public NoteViewModel viewModel;
@@ -43,8 +41,6 @@ namespace LocalNote
 
             this.NoteContent = ContentBox.Text;
            
-
-
         }
              
 
@@ -82,11 +78,6 @@ namespace LocalNote
             return ContentBox.Text;
 
         }
-
-        //public string getNoteTitle() 
-        //{
-        //    //return TitleBox.Text;
-        //}
 
         public string contentUpdate()
         {

@@ -23,7 +23,6 @@ namespace LocalNote.Repositories
 
         public List<string> noteTitles { get; set; }
 
-
         public void loadFiles(NoteViewModel noteViewModel) 
         {
 

@@ -72,8 +72,12 @@
             <AppBarButton x:Name="Edit" Icon="Edit" Label="Edit Note"
                           ToolTipService.ToolTip="Edit Note"
                           Command="{x:Bind NoteViewModel.EditCommand}"
-                         ></AppBarButton>           
-            
+                         ></AppBarButton>
+            <AppBarButton x:Name="Delete" Icon="Delete" Label="Delete Note"
+                          ToolTipService.ToolTip="Delete Note"
+                          Command="{x:Bind NoteViewModel.DeleteCommand}"
+                         ></AppBarButton>
+
         </CommandBar>
     </Page.TopAppBar>
     

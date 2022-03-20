@@ -26,6 +26,7 @@ namespace LocalNote.ViewModels
         public ObservableCollection<NoteModel> Notes { get; set; }
 
         public SaveCommand SaveCommand { get; }
+        public DeleteCommand DeleteCommand { get; }
         public EditCommand EditCommand { get; }
         public AddCommand AddCommand { get; }
 
@@ -100,17 +101,16 @@ namespace LocalNote.ViewModels
             SaveCommand = new SaveCommand(this);
             EditCommand = new EditCommand(this);
             AddCommand = new AddCommand(this);
+            DeleteCommand = new DeleteCommand(this);
             notesRepo = new NotesRepo();
 
             Notes = new ObservableCollection<NoteModel>();
-
             _allNotes = new List<NoteModel>();
 
+            //load in the existing note files
             notesRepo.loadFiles(this);
 
             PerformFiltering();
-
-
         }
 
 
@@ -159,12 +159,13 @@ namespace LocalNote.ViewModels
         {
             //calls function from main pain 
             MainPage.newNote();
-            mpCreateNote("cat");
+           
         }
 
         public void mpCreateNote(string title) {
 
-            MainPage.getNoteContent();       
+            //get the content of the note
+            MainPage.getNoteContent();      
         
         }       
    

@@ -130,11 +130,8 @@ namespace LocalNote.Commands
 
                         _noteViewModel.createNewNote(saveDialog.UserNote);
 
-                    }
-
-                  
+                    }                  
                 }
-
             }
         }
     }
