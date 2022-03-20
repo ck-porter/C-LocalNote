@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LocalNote.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace LocalNote.Commands
 
         //pass in the reference to the object
         private ViewModels.NoteViewModel _noteViewModel;
+        private NotesRepo _notesRepo;
 
         public SaveCommand(ViewModels.NoteViewModel noteViewModel)
         {
             this._noteViewModel = noteViewModel;
+            this._notesRepo = new NotesRepo();
         }
 
 
@@ -30,8 +33,7 @@ namespace LocalNote.Commands
 
         public async void Execute(object parameter)
         {
-            string updateContents = _noteViewModel.getContents();
-            
+            string updateContents = _noteViewModel.getContents();            
 
             //if the user loads in a selected file and edits it, do not perform a full save with title box
             if (_noteViewModel.SelectedNote != null)
@@ -50,7 +52,7 @@ namespace LocalNote.Commands
                 await savedDialog.ShowAsync();
 
                 //reload the list
-
+                _noteViewModel.refreshNotes(updateContents);            
             }
 
             else { 

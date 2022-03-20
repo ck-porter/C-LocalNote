@@ -20,14 +20,22 @@ namespace LocalNote.ViewModels
         public NotesRepo notesRepo { get; set; }
 
         public string Title { get; set; }
+        private List<NoteModel> _allNotes;
 
-        private string _vmContent;
+        //create a collection 
+        public ObservableCollection<NoteModel> Notes { get; set; }
 
-        public string Content { get { return _vmContent; } set { _vmContent = MainPage.NoteContent; } }
+        public SaveCommand SaveCommand { get; }
+        public EditCommand EditCommand { get; }
+        public AddCommand AddCommand { get; }
 
-        public string NoteContent;
-     
 
+        //to bind to UI
+        public string vmContent { get; set; }
+        public string vmTitle { get; set; }
+
+
+        public string NoteContent;    
 
         private string _filter;
         public string Filter
@@ -55,19 +63,19 @@ namespace LocalNote.ViewModels
         }
 
 
-        private List<NoteModel> _allNotes;
+        //private List<NoteModel> _allNotes;
 
-        //create a collection 
-        public ObservableCollection<NoteModel> Notes { get; set; }
+        ////create a collection 
+        //public ObservableCollection<NoteModel> Notes { get; set; }
 
-        public SaveCommand SaveCommand { get; }
-        public EditCommand EditCommand { get; }
-        public AddCommand AddCommand { get; }
+        //public SaveCommand SaveCommand { get; }
+        //public EditCommand EditCommand { get; }
+        //public AddCommand AddCommand { get; }
 
 
-        //to bind to UI
-        public string vmContent { get; set; } 
-        public string vmTitle { get; set; }
+        ////to bind to UI
+        //public string vmContent { get; set; } 
+        //public string vmTitle { get; set; }
 
 
         private NoteModel _selectedNote;
@@ -99,7 +107,6 @@ namespace LocalNote.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmTitle"));
             }
-
        
         }
 
@@ -121,8 +128,6 @@ namespace LocalNote.ViewModels
 
 
         }
-
- 
 
 
         private void PerformFiltering()
@@ -177,15 +182,12 @@ namespace LocalNote.ViewModels
 
             MainPage.getNoteContent();       
         
-        }
-        
-        //-----------------------------------------------------------------------------------create new note not working-------------------
-
+        }       
+   
         public void createNewNote(string title)
         {
-            NoteModel nm = new NoteModel();   
-   
-            string Note = MainPage.getNoteContent();      //returns the correct content 
+            NoteModel nm = new NoteModel(); 
+            string Note = MainPage.getNoteContent();      
             nm = new Models.NoteModel(title, Note);
             this.Notes.Add(nm);
 
@@ -193,10 +195,18 @@ namespace LocalNote.ViewModels
 
         public void loadNotes(string title, string content) 
         {
-            NoteModel nm = new NoteModel();
-                       
+            NoteModel nm = new NoteModel();                       
             nm = new Models.NoteModel(title, content);
             this._allNotes.Add(nm);
+
+        }
+
+        public void refreshNotes(string vmContent) 
+        {
+            //_allNotes.Clear();
+            //Notes.Clear();
+
+            //_allNotes.RemoveAll();
 
         }
 

@@ -15,7 +15,7 @@ namespace LocalNote.Repositories
     {
         //this class is going to handle all the file saving(or ALL file related commands ie reading)
 
-        private static StorageFolder _namesFolder = ApplicationData.Current.LocalFolder;     
+        private static StorageFolder _notesFolder = ApplicationData.Current.LocalFolder;     
 
         public NoteModel nm { get; }
 
@@ -55,12 +55,8 @@ namespace LocalNote.Repositories
 
             try
             {
-
                 string path = ApplicationData.Current.LocalFolder.Path + "\\" + fileName + ".txt";
-                await File.WriteAllTextAsync(path, newContent);
-                
-                              
-
+                await File.WriteAllTextAsync(path, newContent);      
             }
             catch (Exception ex)
             {
@@ -68,10 +64,7 @@ namespace LocalNote.Repositories
             }
 
         }
-
-
-
-           
+                   
 
         public async static void SaveNameDaysToFile(NoteModel selected, String userNote, string newContent)  //pass in the content from the save icon
         {
@@ -84,17 +77,10 @@ namespace LocalNote.Repositories
 
             try
             {
-                StorageFile notesFile = await _namesFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-
-
-                //need a try catch around this
-
+                //create a new file using the name the user entered into the save dialog
+                StorageFile notesFile = await _notesFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);            
              
-                await FileIO.AppendTextAsync(notesFile, newContent);
-
-             
-
-
+                await FileIO.AppendTextAsync(notesFile, newContent);           
 
             }
             catch (Exception ex)
