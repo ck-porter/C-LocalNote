@@ -27,27 +27,48 @@ namespace LocalNote.Repositories
         public void loadFiles(NoteViewModel noteViewModel) 
         {
 
-           List<string> noteTitles = new List<string>();
-     //      noteViewModel = new NoteViewModel();
+           List<string> noteTitles = new List<string>();  
 
-           string path = ApplicationData.Current.LocalFolder.Path;
+            string path = ApplicationData.Current.LocalFolder.Path;
 
             DirectoryInfo dinfo = new DirectoryInfo(@path);
             FileInfo[] Files = dinfo.GetFiles("*");
 
+            //load in the files already existing
             foreach (FileInfo file in Files)
             {
                 noteTitles.Add(file.Name);
 
+                //grab the file name without the extension 
+                string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);          
+                string content  = File.ReadAllText(path+ '\\' +  file.Name);          
 
-                string title = file.Name;
-                string content  = File.ReadAllText(path+ '\\' +  file.Name);
-                string pause = "";
-
-               noteViewModel.loadNotes(title, content);
+                //load in the existing notes with method from nvm
+                noteViewModel.loadNotes(title, content);
             }
 
         }
+
+
+        public async static void SaveExisting(NoteModel selected, string fileName,  string newContent) 
+        {
+
+            try
+            {
+
+                string path = ApplicationData.Current.LocalFolder.Path + "\\" + fileName + ".txt";
+                await File.WriteAllTextAsync(path, newContent);
+                
+                              
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Some error occured!!");
+            }
+
+        }
+
 
 
            
@@ -68,15 +89,10 @@ namespace LocalNote.Repositories
 
                 //need a try catch around this
 
-                //if (selected.Content == null)
-                //{
+             
                 await FileIO.AppendTextAsync(notesFile, newContent);
 
-                //}
-                //else {
-
-                /* await FileIO.AppendTextAsync(notesFile, selected.Content); */  //------------------only works if note is selected
-                                                                                  //}
+             
 
 
 

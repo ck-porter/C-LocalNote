@@ -27,6 +27,7 @@ namespace LocalNote
     {
         public NoteViewModel viewModel;
         public string NoteContent { get; set; }
+        public string NoteTitle { get; set; }
 
         public ViewModels.NoteViewModel NoteViewModel { get; set; }
 
@@ -40,7 +41,8 @@ namespace LocalNote
             NoteViewModel.MainPage = this;
             newNote();//starting postion
 
-           this.NoteContent = ContentBox.Text;
+            this.NoteContent = ContentBox.Text;
+           
 
 
         }
@@ -80,6 +82,11 @@ namespace LocalNote
             return ContentBox.Text;
 
         }
+
+        //public string getNoteTitle() 
+        //{
+        //    //return TitleBox.Text;
+        //}
 
         public string contentUpdate()
         {

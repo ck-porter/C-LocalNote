@@ -30,8 +30,30 @@ namespace LocalNote.Commands
 
         public async void Execute(object parameter)
         {
+            string updateContents = _noteViewModel.getContents();
             
 
+            //if the user loads in a selected file and edits it, do not perform a full save with title box
+            if (_noteViewModel.SelectedNote != null)
+            {
+                string fileName = _noteViewModel.getTitle();
+                Repositories.NotesRepo.SaveExisting(_noteViewModel.SelectedNote, fileName, updateContents);
+
+                //display the saved note message
+                ContentDialog savedDialog = new ContentDialog()
+                {
+
+                    Content = "Names saved successfully to file",
+                    Title = "Save Succesful",
+                    PrimaryButtonText = "Ok"
+                };
+                await savedDialog.ShowAsync();
+
+                //reload the list
+
+            }
+
+            else { 
 
             //instantiate new instance of our dialog box
             SaveNoteDialog saveDialog = new SaveNoteDialog();
@@ -43,32 +65,33 @@ namespace LocalNote.Commands
             string newContent = _noteViewModel.getContents();
 
 
-            if (result == ContentDialogResult.Primary) //primary is the save button on the dialog box
-            {
-                //do the save using windows storage
-
-                try
+                if (result == ContentDialogResult.Primary) //primary is the save button on the dialog box
                 {
-                    Repositories.NotesRepo.SaveNameDaysToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
+                    //do the save using windows storage
 
-                    ContentDialog savedDialog = new ContentDialog()
+                    try
                     {
-                        
+                        Repositories.NotesRepo.SaveNameDaysToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
 
-                        Content = "Names saved successfully to file",
-                        Title = "Save Succesful",
-                        PrimaryButtonText = "Ok"
-                    };
-                    await savedDialog.ShowAsync();
+                        ContentDialog savedDialog = new ContentDialog()
+                        {
 
 
+                            Content = "Note saved successfully to file",
+                            Title = "Save Succesful",
+                            PrimaryButtonText = "Ok"
+                        };
+                        await savedDialog.ShowAsync();
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Error when attempting to save to file");
+                    }
+
+                    _noteViewModel.createNewNote(saveDialog.UserNote);
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Error when attempting to save to file");
-                }
-
-                _noteViewModel.createNewNote(saveDialog.UserNote);
 
             }
         }

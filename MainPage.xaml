@@ -12,7 +12,7 @@
         <CollectionViewSource x:Name="NotesCollection" Source="{x:Bind NoteViewModel.Notes}"></CollectionViewSource>
 
         <DataTemplate x:Name="TitleTemplate" x:DataType="models:NoteModel">
-            <TextBlock Text="{x:Bind Title}"></TextBlock>            
+            <TextBlock x:Name ="TitleBox" Text="{x:Bind Title}"></TextBlock>            
         </DataTemplate>
                    
         
@@ -45,13 +45,9 @@
                        ItemTemplate="{StaticResource TitleTemplate}"
                        SelectedItem="{x:Bind NoteViewModel.SelectedNote, Mode=TwoWay}">
             </ListView>
-        </ScrollViewer>
-
-            <!--<TextBox x:Name ="tbContent" Text="{x:Bind NoteViewModel.vmContent, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" ></TextBox>-->
-
+        </ScrollViewer>         
             <TextBox x:Name ="ContentBox" Grid.Row="1" Grid.Column="1" Margin="20" TextWrapping="Wrap"
-                     Text="{x:Bind NoteViewModel.vmContent, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" ></TextBox>        
-
+                     Text="{x:Bind NoteViewModel.vmContent, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" ></TextBox>     
     </Grid>
 
     <!--app bars are usually on the entire page, top or bottom-->

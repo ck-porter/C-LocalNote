@@ -115,13 +115,6 @@ namespace LocalNote.ViewModels
 
             _allNotes = new List<NoteModel>();
 
-            this._allNotes.Add(new NoteModel("title", "new content"));
-            this._allNotes.Add(new NoteModel("2nd", "MORE contenet, and anotes, and stuff"));
-            this._allNotes.Add(new NoteModel("3rd", "EXTRA notes blah vlah vlaldsa dasdsad asd sadad"));
-            this._allNotes.Add(new NoteModel("Cat", "more more more more more"));
-            this._allNotes.Add(new NoteModel("Dog", "more more more more more"));
-            this._allNotes.Add(new NoteModel("Truck", "more more more more more"));
-
             notesRepo.loadFiles(this);
 
             PerformFiltering();
@@ -212,6 +205,11 @@ namespace LocalNote.ViewModels
             string Note = MainPage.getNoteContent();
             return Note;
 
+        }
+
+        public string getTitle() 
+        {
+            return SelectedNote.Title;
         }
 
     }
