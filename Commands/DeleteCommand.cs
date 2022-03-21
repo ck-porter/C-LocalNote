@@ -59,29 +59,33 @@ namespace LocalNote.Commands
                         //load in the files already existing
                         foreach (FileInfo file in Files)
                         {
-                            string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);                                              
-                        
-                            if (title == selectedTitle)
-                            {
+                            string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
 
+                    if (title == selectedTitle)
+                    {
+
+                        try
+                        {
                             //perform delete
-
-
+                            File.Delete(path + "\\" + title + ".txt");
 
                             ContentDialog deletedDialog = new ContentDialog()
                             {
-
-
                                 Content = "Note was deleted",
                                 Title = "Delete Succesful",
                                 PrimaryButtonText = "Ok"
                             };
+                            await deletedDialog.ShowAsync();
 
-                                              
-                             await deletedDialog.ShowAsync();                                   
-                                                    
-                        }              
-                                                      
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Debug.WriteLine("Error when attempting to save to file");
+
+                        }
+
+                    }
                 }
             }
         }
