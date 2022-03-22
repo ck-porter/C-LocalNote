@@ -75,6 +75,7 @@ namespace LocalNote.Commands
                                 PrimaryButtonText = "Ok"
                             };
                             await deletedDialog.ShowAsync();
+                            _noteViewModel.removeNote();
 
                         }
                         catch (Exception ex)

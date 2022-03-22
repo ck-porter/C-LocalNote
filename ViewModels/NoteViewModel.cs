@@ -171,15 +171,25 @@ namespace LocalNote.ViewModels
             NoteModel nm = new NoteModel();                       
             nm = new Models.NoteModel(title, content);
             this._allNotes.Add(nm);
+            this.Notes.Add(nm);
 
         }
 
         public void refreshNotes(string vmContent) 
         {
-            //_allNotes.Clear();
-            //Notes.Clear();
+            //clear the list and collection, then reload
+            _allNotes.Clear();
+            Notes.Clear();           
+            notesRepo.loadFiles(this);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
 
-            //_allNotes.RemoveAll();
+        }
+
+        public void removeNote() 
+        {
+            //clear the list and collection, then reload
+            _allNotes.Clear();
+            Notes.Clear();
             notesRepo.loadFiles(this);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
 
