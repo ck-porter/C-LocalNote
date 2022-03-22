@@ -25,7 +25,6 @@ namespace LocalNote.Commands
 
         }
 
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -36,7 +35,7 @@ namespace LocalNote.Commands
         public async void Execute(object parameter)
         {
             AboutDialog aboutDialog = new AboutDialog();
-            ContentDialogResult result = await aboutDialog.ShowAsync();                 
+            ContentDialogResult result = await aboutDialog.ShowAsync();                
                 
         }
     }

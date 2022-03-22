@@ -17,15 +17,13 @@ namespace LocalNote.Commands
     {
 
         //pass in the reference to the object
-        private ViewModels.NoteViewModel _noteViewModel;
-       
+        private ViewModels.NoteViewModel _noteViewModel;       
 
         public ExitCommand(ViewModels.NoteViewModel noteViewModel)
         {
             this._noteViewModel = noteViewModel;
 
         }
-
 
         public event EventHandler CanExecuteChanged;
 

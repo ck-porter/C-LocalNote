@@ -14,12 +14,9 @@ namespace LocalNote.Models
         private string _filter;
         public string Filter
         {
-
             get { return _filter; }
             set { _filter = value; }
-
         }
-
 
         //constructor
         public NoteModel(string title, string content) 
@@ -33,17 +30,11 @@ namespace LocalNote.Models
         public string getTitle()
         {
              return Title; 
-
-
-
         }
 
         public string getContent()
         {
              return Content; 
-
-
-
         }
     }
 }

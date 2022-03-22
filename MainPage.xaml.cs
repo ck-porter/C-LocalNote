@@ -37,8 +37,8 @@ namespace LocalNote
                     
             this.NoteViewModel = new ViewModels.NoteViewModel();
             NoteViewModel.MainPage = this;
-            newNote();//starting postion
-
+            //starting postion
+            newNote();
             this.NoteContent = ContentBox.Text;
            
         }

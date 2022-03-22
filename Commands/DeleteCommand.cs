@@ -25,7 +25,6 @@ namespace LocalNote.Commands
             this._notesRepo = new NotesRepo();
         }
 
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -45,21 +44,21 @@ namespace LocalNote.Commands
             string newContent = _noteViewModel.getContents();
 
 
-                if (result == ContentDialogResult.Primary) 
+            if (result == ContentDialogResult.Primary) 
+            {
+                //grab the path to the file
+                string path = ApplicationData.Current.LocalFolder.Path;
+
+                DirectoryInfo dinfo = new DirectoryInfo(@path);
+                FileInfo[] Files = dinfo.GetFiles("*");
+
+                //grab the title of the selected note
+                string selectedTitle = _noteViewModel.getTitle();
+
+                //load in the files already existing
+                foreach (FileInfo file in Files)
                 {
-                        //check to make sure there isn't a file with that name already
-                        string path = ApplicationData.Current.LocalFolder.Path;
-
-                        DirectoryInfo dinfo = new DirectoryInfo(@path);
-                        FileInfo[] Files = dinfo.GetFiles("*");
-
-                        //grab the title of the selected note, could be in try catch block
-                        string selectedTitle = _noteViewModel.getTitle();
-
-                        //load in the files already existing
-                        foreach (FileInfo file in Files)
-                        {
-                            string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+                    string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
 
                     if (title == selectedTitle)
                     {
@@ -80,9 +79,7 @@ namespace LocalNote.Commands
                         }
                         catch (Exception ex)
                         {
-
-                            Debug.WriteLine("Error when attempting to save to file");
-
+                            Debug.WriteLine("Error when attempting to delete the file");
                         }
 
                     }

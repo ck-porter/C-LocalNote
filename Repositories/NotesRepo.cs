@@ -25,9 +25,9 @@ namespace LocalNote.Repositories
 
         public void loadFiles(NoteViewModel noteViewModel) 
         {
-
-           List<string> noteTitles = new List<string>();  
-
+            //a list to store all the titles
+            List<string> noteTitles = new List<string>();  
+                        
             string path = ApplicationData.Current.LocalFolder.Path;
 
             DirectoryInfo dinfo = new DirectoryInfo(@path);
@@ -45,15 +45,13 @@ namespace LocalNote.Repositories
                 //load in the existing notes with method from nvm
                 noteViewModel.loadNotes(title, content);
             }
-
         }
-
 
         public async static void SaveExisting(NoteModel selected, string fileName,  string newContent) 
         {
-
             try
-            {
+            {   
+                //if file already exists, overwrite the content in the file
                 string path = ApplicationData.Current.LocalFolder.Path + "\\" + fileName + ".txt";
                 await File.WriteAllTextAsync(path, newContent);      
             }
@@ -61,26 +59,20 @@ namespace LocalNote.Repositories
             {
                 Debug.WriteLine("Some error occured!!");
             }
+        }                   
 
-        }
-                   
-
-        public async static void SaveNameDaysToFile(NoteModel selected, String userNote, string newContent)  //pass in the content from the save icon
-        {
-      
-            String fileName = userNote + ".txt";
-   
+        public async static void SaveNoteToFile(NoteModel selected, String userNote, string newContent)  //pass in the content from the save icon
+        {     
             NoteModel nm = new NoteModel();
-            NoteViewModel nmViewModel = new NoteViewModel();                 
-
+            NoteViewModel nmViewModel = new NoteViewModel();
+            String fileName = userNote + ".txt";
 
             try
             {
                 //create a new file using the name the user entered into the save dialog
                 StorageFile notesFile = await _notesFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);            
              
-                await FileIO.AppendTextAsync(notesFile, newContent);           
-
+                await FileIO.AppendTextAsync(notesFile, newContent);         
             }
             catch (Exception ex)
             {

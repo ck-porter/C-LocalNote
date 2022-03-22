@@ -10,11 +10,9 @@
 
     <Page.Resources>
         <CollectionViewSource x:Name="NotesCollection" Source="{x:Bind NoteViewModel.Notes}"></CollectionViewSource>
-
         <DataTemplate x:Name="TitleTemplate" x:DataType="models:NoteModel">
             <TextBlock x:Name ="TitleBox" Text="{x:Bind Title}" FontSize="15"></TextBlock>            
-        </DataTemplate>                   
-        
+        </DataTemplate>
     </Page.Resources> 
 
     <Grid>
@@ -26,8 +24,6 @@
             <ColumnDefinition Width="383*"/>
             <ColumnDefinition Width="1117*"/>
         </Grid.ColumnDefinitions>
-
-
         <TextBox x:Name="FilterTextbox"                  
                  Text="{x:Bind NoteViewModel.Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="24"
@@ -36,8 +32,6 @@
                  Grid.Row="0"
                  Grid.Column="0"
                  PlaceholderText="Search for Note..."></TextBox> 
-
-
         <ScrollViewer Grid.Row="1" Grid.Column="0">
             <!--bind listview to the viewmodel-->
             <ListView  x:Name="titleListView" ItemsSource="{Binding Source={StaticResource NotesCollection}}"
@@ -55,35 +49,28 @@
             <CommandBar.Content>                
                 <!--Title for the note-->
                 <TextBlock Text="{x:Bind NoteViewModel.vmTitle, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" FontSize="20" Margin="10" ></TextBlock>
-                
             </CommandBar.Content >                      
             <AppBarButton x:Name="AddIcon" Icon="Add" Label="New Note"
                           ToolTipService.ToolTip="Create New Note"
                           Command="{x:Bind NoteViewModel.AddCommand}"
-                         ></AppBarButton>
-            
+                         ></AppBarButton>            
             <AppBarButton x:Name="SaveIcon" Icon="Save" Label="Save Note"
                           ToolTipService.ToolTip="Save Names"
                           Command="{x:Bind NoteViewModel.SaveCommand}"
-                         ></AppBarButton>
-            
+                         ></AppBarButton>            
             <AppBarButton x:Name="Edit" Icon="Edit" Label="Edit Note"
                           ToolTipService.ToolTip="Edit Note"
                           Command="{x:Bind NoteViewModel.EditCommand}"
-                         ></AppBarButton>
-            
-            <AppBarSeparator></AppBarSeparator>
-            
+                         ></AppBarButton>            
+            <AppBarSeparator></AppBarSeparator>            
             <AppBarButton x:Name="Delete" Icon="Delete" Label="Delete Note"
                           ToolTipService.ToolTip="Delete Note"
                           Command="{x:Bind NoteViewModel.DeleteCommand}"
-                         ></AppBarButton>
-            
+                         ></AppBarButton>            
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="About"  Label="About" Command="{x:Bind NoteViewModel.AboutCommand}"></AppBarButton>
                 <AppBarButton Label="Exit" Command="{x:Bind NoteViewModel.ExitCommand}" ></AppBarButton>                
-            </CommandBar.SecondaryCommands>
-            
+            </CommandBar.SecondaryCommands>            
         </CommandBar>
     </Page.TopAppBar>
     

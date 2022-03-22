@@ -14,17 +14,11 @@ namespace LocalNote.ViewModels
     public class NoteViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public MainPage MainPage { get; set; }
-
         public NotesRepo notesRepo { get; set; }
-
         public string Title { get; set; }
-        private List<NoteModel> _allNotes;
-
-        //create a collection 
+        private List<NoteModel> _allNotes;        
         public ObservableCollection<NoteModel> Notes { get; set; }
-
         public SaveCommand SaveCommand { get; }
         public DeleteCommand DeleteCommand { get; }
         public EditCommand EditCommand { get; }
@@ -32,18 +26,16 @@ namespace LocalNote.ViewModels
         public AboutCommand AboutCommand { get; }
         public ExitCommand ExitCommand { get; }
 
-
         //to bind to UI
         public string vmContent { get; set; }
         public string vmTitle { get; set; }
 
 
-        public string NoteContent;    
+        public string NoteContent;   
 
         private string _filter;
         public string Filter
         {
-
             get { return _filter; }
             set
             {
@@ -56,13 +48,10 @@ namespace LocalNote.ViewModels
 
                 PerformFiltering();
 
-
                 //want to trigger a re-bind because the list has been filtered, names removed, and we need
                 //to reflect that in the listitem view
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Filter)));  //rekicks databinding to say filter has changed
-
             }
-
         }
 
         private NoteModel _selectedNote;
@@ -73,28 +62,24 @@ namespace LocalNote.ViewModels
 
             set 
             {
-
                 _selectedNote = value;
 
                 if (value == null)
                 {
                     vmContent = "";
                     vmTitle = "";
-
                 }
                 else
                 {
                     vmContent = value.Content;
-                    vmTitle = value.Title;
-                    //gonna need a flag or something here to allow edit
+                    vmTitle = value.Title;  
+                    //if user has selected a note, then make sure the textbox is in readonly mode
                     MainPage.readOnlyMode();
-
                 }
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmTitle"));
-            }
-       
+            }       
         }
 
 
@@ -133,7 +118,6 @@ namespace LocalNote.ViewModels
                 .ToList();
                     
             var toRemove = Notes.Except(result).ToList();
-
           
             foreach (var x in toRemove)
             {
@@ -154,32 +138,32 @@ namespace LocalNote.ViewModels
 
         public void mpContentUnlock() 
         {
-            //calls function from main page
-            MainPage.editMode();
-        
+            //calls function from main page to enable editing
+            MainPage.editMode();        
         }
 
         public void mpNewNote() 
         {
-            //calls function from main pain 
-            MainPage.newNote();
-           
+            //calls function from main pain enable a new note to be created
+            MainPage.newNote();           
         }
 
         public void mpCreateNote(string title) {
 
             //get the content of the note
-            MainPage.getNoteContent();      
-        
+            MainPage.getNoteContent();              
         }       
    
         public void createNewNote(string title)
         {
             NoteModel nm = new NoteModel(); 
-            string Note = MainPage.getNoteContent();      
+            string Note = MainPage.getNoteContent();   
+            
+            //create a new note object
             nm = new Models.NoteModel(title, Note);
-            this.Notes.Add(nm);
 
+            //add the new note to the notes collection
+            this.Notes.Add(nm);
         }
 
         public void loadNotes(string title, string content) 
@@ -205,7 +189,6 @@ namespace LocalNote.ViewModels
         {
             string Note = MainPage.getNoteContent();
             return Note;
-
         }
 
         public string getTitle() 

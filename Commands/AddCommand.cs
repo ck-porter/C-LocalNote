@@ -19,7 +19,6 @@ namespace LocalNote.Commands
             this._noteViewModel = noteViewModel;
         }
 
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)

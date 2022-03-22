@@ -61,44 +61,41 @@ namespace LocalNote.Commands
 
             //instantiate new instance of our dialog box
             SaveNoteDialog saveDialog = new SaveNoteDialog();
-
-            //this forces the program to wait until the dialog box is complete
-            ContentDialogResult result = await saveDialog.ShowAsync();   //store the button value into result
+           
+            ContentDialogResult result = await saveDialog.ShowAsync();  
 
             string newContent = _noteViewModel.getContents();
 
-
-                if (result == ContentDialogResult.Primary) //primary is the save button on the dialog box
+                if (result == ContentDialogResult.Primary) 
                 {
-                    //do the save using windows storage
+                    //flag to control if file name already exists
                     bool fileAlreadyExists = false;
 
                     if (fileAlreadyExists == false) 
                     {
-
-                        //check to make sure there isn't a file with that name already
+                        //load in the path
                         string path = ApplicationData.Current.LocalFolder.Path;
-
                         DirectoryInfo dinfo = new DirectoryInfo(@path);
                         FileInfo[] Files = dinfo.GetFiles("*");
 
-                        //load in the files already existing
+                        //load in the files 
                         foreach (FileInfo file in Files)
                         {
+                            //look grab the title without the extension
                             string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+
+                            //if a file with the same name already exists, don't save
+                            //return a failed to save message
                             if (title == saveDialog.UserNote)
                             {
                                 ContentDialog savedDialog = new ContentDialog()
                                 {
-
-
                                     Content = "Sorry, a note with that name already exists! Try again",
                                     Title = "Save Unsuccesful",
                                     PrimaryButtonText = "Ok"
                                 };
                                 await savedDialog.ShowAsync();       
                                 fileAlreadyExists = true;
-
                             }
                         }
                     }
@@ -106,22 +103,19 @@ namespace LocalNote.Commands
                     //if there is no file with that name already, then do a save
                     if (fileAlreadyExists == false) 
                     {
-
                         try
                         {
-                            Repositories.NotesRepo.SaveNameDaysToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
+                            //execture the save method from the NotesRepo class
+                            Repositories.NotesRepo.SaveNoteToFile(_noteViewModel.SelectedNote, saveDialog.UserNote, newContent);
 
+                            //display a saved note message to user
                             ContentDialog savedDialog = new ContentDialog()
                             {
-
-
                                 Content = "Note saved successfully to file",
                                 Title = "Save Succesful",
                                 PrimaryButtonText = "Ok"
                             };
                             await savedDialog.ShowAsync();
-
-
                         }
                         catch (Exception ex)
                         {
@@ -129,7 +123,6 @@ namespace LocalNote.Commands
                         }
 
                         _noteViewModel.createNewNote(saveDialog.UserNote);
-
                     }                  
                 }
             }
