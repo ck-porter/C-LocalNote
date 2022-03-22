@@ -29,6 +29,7 @@ namespace LocalNote.ViewModels
         public DeleteCommand DeleteCommand { get; }
         public EditCommand EditCommand { get; }
         public AddCommand AddCommand { get; }
+        public AboutCommand AboutCommand { get; }
 
 
         //to bind to UI
@@ -102,6 +103,7 @@ namespace LocalNote.ViewModels
             EditCommand = new EditCommand(this);
             AddCommand = new AddCommand(this);
             DeleteCommand = new DeleteCommand(this);
+            AboutCommand = new AboutCommand(this);
             notesRepo = new NotesRepo();
 
             Notes = new ObservableCollection<NoteModel>();

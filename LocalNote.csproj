@@ -116,10 +116,14 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\AddCommand.cs" />
+    <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\EditCommand.cs" />
@@ -135,6 +139,9 @@
     <Compile Include="SaveNoteDialog.xaml.cs">
       <DependentUpon>SaveNoteDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\NoteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +150,16 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\2ndSplash.scale-125.png" />
+    <Content Include="Assets\2ndSplash.scale-150.png" />
+    <Content Include="Assets\2ndSplash.scale-200.png" />
+    <Content Include="Assets\2ndSplash.scale-400.png" />
+    <Content Include="Assets\book v2.png" />
+    <Content Include="Assets\spell.jpg" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -157,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DeleteNoteDialog1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +187,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SaveNoteDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

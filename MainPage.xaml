@@ -78,6 +78,12 @@
                           ToolTipService.ToolTip="Delete Note"
                           Command="{x:Bind NoteViewModel.DeleteCommand}"
                          ></AppBarButton>
+            
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="About"  Label="About" Command="{x:Bind NoteViewModel.AboutCommand}"></AppBarButton>
+                <AppBarButton Label="Exit"  ></AppBarButton>                
+            </CommandBar.SecondaryCommands>
+            
         </CommandBar>
     </Page.TopAppBar>
     

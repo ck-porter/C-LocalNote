@@ -24,6 +24,7 @@ namespace LocalNote
     public sealed partial class MainPage : Page
     {
         public NoteViewModel viewModel;
+        public SplashScreen splashScreen;
         public string NoteContent { get; set; }
         public string NoteTitle { get; set; }
 
@@ -33,8 +34,8 @@ namespace LocalNote
         public MainPage()
         {
             this.InitializeComponent();
-
-            // this.viewModel  = new NoteViewModel();
+            //splashScreen = new SplashScreen(); 
+                    
             this.NoteViewModel = new ViewModels.NoteViewModel();
             NoteViewModel.MainPage = this;
             newNote();//starting postion
@@ -42,7 +43,7 @@ namespace LocalNote
             this.NoteContent = ContentBox.Text;
            
         }
-             
+                            
 
         public void readOnlyMode() 
         {
@@ -51,6 +52,7 @@ namespace LocalNote
             SaveIcon.IsEnabled = false;
             Edit.IsEnabled = true;
             Delete.IsEnabled = true;
+            About.IsEnabled = true;
 
         }
 
@@ -62,6 +64,7 @@ namespace LocalNote
             Edit.IsEnabled = false;
             ContentBox.IsReadOnly = false;
             Delete.IsEnabled = false;
+            About.IsEnabled = true;
 
         }
 
@@ -73,6 +76,7 @@ namespace LocalNote
             Edit.IsEnabled = false;
             ContentBox.IsReadOnly = false;   
             Delete.IsEnabled= false;
+            About.IsEnabled = true;
 
         }
 
@@ -82,13 +86,7 @@ namespace LocalNote
 
         }
 
-        public string contentUpdate()
-        {
-            //get { return tbContent.Text; }
-            return NoteContent = ContentBox.Text;
-
-
-        }
+ 
 
       
     }
