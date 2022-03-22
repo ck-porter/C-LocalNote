@@ -24,7 +24,7 @@ namespace LocalNote
     public sealed partial class MainPage : Page
     {
         public NoteViewModel viewModel;
-        public SplashScreen splashScreen;
+       
         public string NoteContent { get; set; }
         public string NoteTitle { get; set; }
 
@@ -33,8 +33,7 @@ namespace LocalNote
 
         public MainPage()
         {
-            this.InitializeComponent();
-            //splashScreen = new SplashScreen(); 
+            this.InitializeComponent();         
                     
             this.NoteViewModel = new ViewModels.NoteViewModel();
             NoteViewModel.MainPage = this;
@@ -85,9 +84,6 @@ namespace LocalNote
             return ContentBox.Text;
 
         }
-
- 
-
-      
+              
     }
 }

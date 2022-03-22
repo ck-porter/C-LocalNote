@@ -30,6 +30,7 @@ namespace LocalNote.ViewModels
         public EditCommand EditCommand { get; }
         public AddCommand AddCommand { get; }
         public AboutCommand AboutCommand { get; }
+        public ExitCommand ExitCommand { get; }
 
 
         //to bind to UI
@@ -104,6 +105,7 @@ namespace LocalNote.ViewModels
             AddCommand = new AddCommand(this);
             DeleteCommand = new DeleteCommand(this);
             AboutCommand = new AboutCommand(this);
+            ExitCommand = new ExitCommand(this);
             notesRepo = new NotesRepo();
 
             Notes = new ObservableCollection<NoteModel>();
