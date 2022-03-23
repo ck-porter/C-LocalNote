@@ -25,6 +25,15 @@ namespace LocalNote.Models
             Content = content;
         }
 
+        //this method is for testing purposes
+        public string newNoteTest(string title, string content) 
+        {
+            NoteModel nm = new NoteModel (title, content);
+            string NewMessage = "Created";
+            return NewMessage;
+        
+        }
+
         public NoteModel() { }
 
         public string getTitle()
