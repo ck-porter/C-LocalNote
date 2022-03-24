@@ -17,7 +17,7 @@ namespace LocalNote.ViewModels
         public MainPage MainPage { get; set; }
         public NotesRepo notesRepo { get; set; }
         public string Title { get; set; }
-        private List<NoteModel> _allNotes;        
+        public List<NoteModel> _allNotes;        
         public ObservableCollection<NoteModel> Notes { get; set; }
         public SaveCommand SaveCommand { get; }
         public DeleteCommand DeleteCommand { get; }

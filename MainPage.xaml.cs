@@ -81,6 +81,10 @@ namespace LocalNote
 
         public string getNoteContent()
         {
+            if (ContentBox.Text == null) 
+            {
+                throw new ArgumentException("No note selected.");
+            }
             return ContentBox.Text;
 
         }

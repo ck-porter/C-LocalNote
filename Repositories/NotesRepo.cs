@@ -25,9 +25,7 @@ namespace LocalNote.Repositories
 
         public void loadFiles(NoteViewModel noteViewModel) 
         {
-            //a list to store all the titles
-            List<string> noteTitles = new List<string>();  
-                        
+                                 
             string path = ApplicationData.Current.LocalFolder.Path;
 
             DirectoryInfo dinfo = new DirectoryInfo(@path);
@@ -35,13 +33,11 @@ namespace LocalNote.Repositories
 
             //load in the files already existing
             foreach (FileInfo file in Files)
-            {
-                noteTitles.Add(file.Name);
-
+            {              
                 //grab the file name without the extension 
                 string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);          
-                string content  = File.ReadAllText(path+ '\\' +  file.Name);          
-
+                string content  = File.ReadAllText(path+ '\\' +  file.Name);     
+                
                 //load in the existing notes with method from nvm
                 noteViewModel.loadNotes(title, content);
             }

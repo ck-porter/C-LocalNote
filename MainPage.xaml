@@ -45,27 +45,31 @@
 
     <!--app bars are usually on the entire page, top or bottom-->
     <Page.TopAppBar>
-        <CommandBar Background="AliceBlue">
+        <CommandBar Background="Purple"  Foreground="White">
             <CommandBar.Content>                
                 <!--Title for the note-->
-                <TextBlock Text="{x:Bind NoteViewModel.vmTitle, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" FontSize="20" Margin="10" ></TextBlock>
+                <TextBlock Text="{x:Bind NoteViewModel.vmTitle, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged }" FontSize="20" Margin="10"  Foreground="White"></TextBlock>
             </CommandBar.Content >                      
             <AppBarButton x:Name="AddIcon" Icon="Add" Label="New Note"
                           ToolTipService.ToolTip="Create New Note"
                           Command="{x:Bind NoteViewModel.AddCommand}"
+                          Foreground="White"                         
                          ></AppBarButton>            
             <AppBarButton x:Name="SaveIcon" Icon="Save" Label="Save Note"
                           ToolTipService.ToolTip="Save Names"
                           Command="{x:Bind NoteViewModel.SaveCommand}"
+                          Foreground="White"
                          ></AppBarButton>            
             <AppBarButton x:Name="Edit" Icon="Edit" Label="Edit Note"
                           ToolTipService.ToolTip="Edit Note"
                           Command="{x:Bind NoteViewModel.EditCommand}"
-                         ></AppBarButton>            
-            <AppBarSeparator></AppBarSeparator>            
+                          Foreground="White"
+                         ></AppBarButton>
+            <AppBarSeparator  Foreground="White"></AppBarSeparator>            
             <AppBarButton x:Name="Delete" Icon="Delete" Label="Delete Note"
                           ToolTipService.ToolTip="Delete Note"
                           Command="{x:Bind NoteViewModel.DeleteCommand}"
+                          Foreground="White"
                          ></AppBarButton>            
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="About"  Label="About" Command="{x:Bind NoteViewModel.AboutCommand}"></AppBarButton>
