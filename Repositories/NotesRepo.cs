@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 namespace LocalNote.Repositories
 {
@@ -73,6 +74,45 @@ namespace LocalNote.Repositories
             catch (Exception ex)
             {
                 Debug.WriteLine("Some error occured!!");
+            }
+        }
+
+        public async static void DeleteFile(NoteModel selected, string selectedTitle, NoteViewModel _noteViewModel)
+        {
+            //grab the path to the file
+            string path = ApplicationData.Current.LocalFolder.Path;
+            DirectoryInfo dinfo = new DirectoryInfo(@path);
+            FileInfo[] Files = dinfo.GetFiles("*");
+          
+
+            //load in the files already existing
+            foreach (FileInfo file in Files)
+            {
+                string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+
+                if (title == selectedTitle)
+                {
+
+                    try
+                    {
+                        //perform delete
+                        File.Delete(path + "\\" + title + ".txt");
+
+                        ContentDialog deletedDialog = new ContentDialog()
+                        {
+                            Content = "Note was deleted",
+                            Title = "Delete Succesful",
+                            PrimaryButtonText = "Ok"
+                        };
+                        await deletedDialog.ShowAsync();
+                        _noteViewModel.removeNote();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Error when attempting to delete the file");
+                    }
+                }
             }
         }
     }

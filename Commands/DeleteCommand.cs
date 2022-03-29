@@ -55,36 +55,11 @@ namespace LocalNote.Commands
                 //grab the title of the selected note
                 string selectedTitle = _noteViewModel.getTitle();
 
-                //load in the files already existing
-                foreach (FileInfo file in Files)
-                {
-                    string title = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+                //call delete function from repo class
+                Repositories.NotesRepo.DeleteFile(_noteViewModel.SelectedNote, selectedTitle, _noteViewModel);
 
-                    if (title == selectedTitle)
-                    {
+                _noteViewModel.mpNewNote();
 
-                        try
-                        {
-                            //perform delete
-                            File.Delete(path + "\\" + title + ".txt");
-
-                            ContentDialog deletedDialog = new ContentDialog()
-                            {
-                                Content = "Note was deleted",
-                                Title = "Delete Succesful",
-                                PrimaryButtonText = "Ok"
-                            };
-                            await deletedDialog.ShowAsync();
-                            _noteViewModel.removeNote();
-
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine("Error when attempting to delete the file");
-                        }
-
-                    }
-                }
             }
         }
     }
