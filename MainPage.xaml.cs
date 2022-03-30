@@ -1,4 +1,5 @@
 ﻿using LocalNote.Models;
+using LocalNote.Repositories;
 using LocalNote.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,10 @@ namespace LocalNote
  
     public sealed partial class MainPage : Page
     {
+        public DataRepository dataRepository;
+
         public NoteViewModel viewModel;
-       
+               
         public string NoteContent { get; set; }
         public string NoteTitle { get; set; }
 
@@ -33,8 +36,12 @@ namespace LocalNote
 
         public MainPage()
         {
-            this.InitializeComponent();         
-                    
+            this.InitializeComponent();  
+            
+            this.dataRepository = new DataRepository();
+            dataRepository.InitializeDatabase();
+
+
             this.NoteViewModel = new ViewModels.NoteViewModel();
             NoteViewModel.MainPage = this;
             //starting postion

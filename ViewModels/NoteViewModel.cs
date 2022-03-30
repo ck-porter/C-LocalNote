@@ -16,6 +16,7 @@ namespace LocalNote.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public MainPage MainPage { get; set; }
         public NotesRepo notesRepo { get; set; }
+        public DataRepository dataRepository { get; set; }
         public string Title { get; set; }
         public List<NoteModel> _allNotes;        
         public ObservableCollection<NoteModel> Notes { get; set; }
@@ -92,12 +93,18 @@ namespace LocalNote.ViewModels
             AboutCommand = new AboutCommand(this);
             ExitCommand = new ExitCommand(this);
             notesRepo = new NotesRepo();
+            dataRepository = new DataRepository();
 
             Notes = new ObservableCollection<NoteModel>();
             _allNotes = new List<NoteModel>();
 
             //load in the existing note files
-            notesRepo.loadFiles(this);
+           // notesRepo.loadFiles(this);
+            dataRepository.LoadNotes(this);
+
+
+
+
 
             PerformFiltering();
         }
@@ -179,8 +186,9 @@ namespace LocalNote.ViewModels
         {
             //clear the list and collection, then reload
             _allNotes.Clear();
-            Notes.Clear();           
-            notesRepo.loadFiles(this);
+            Notes.Clear();
+            // notesRepo.loadFiles(this);
+            dataRepository.LoadNotes(this);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
 
         }

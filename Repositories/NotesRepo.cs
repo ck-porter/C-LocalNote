@@ -20,12 +20,14 @@ namespace LocalNote.Repositories
 
         public NoteModel nm { get; }
 
+        public static DataRepository DataRepository ; 
         public NoteViewModel noteViewModel { get; set; }
-
+               
         public List<string> noteTitles { get; set; }
 
         public void loadFiles(NoteViewModel noteViewModel) 
         {
+            
                                  
             string path = ApplicationData.Current.LocalFolder.Path;
 
@@ -60,6 +62,11 @@ namespace LocalNote.Repositories
 
         public async static void SaveNoteToFile(NoteModel selected, String userNote, string newContent)  //pass in the content from the save icon
         {     
+
+
+
+
+
             NoteModel nm = new NoteModel();
             NoteViewModel nmViewModel = new NoteViewModel();
             String fileName = userNote + ".txt";
