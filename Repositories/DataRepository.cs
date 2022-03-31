@@ -96,6 +96,29 @@ namespace LocalNote.Repositories
             }
         }
 
+        public static void DeleteNote(string title) 
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "note.db");
+            using (SqliteConnection db =
+            new SqliteConnection($"Filename={dbpath}"))
+
+            {
+                db.Open();
+
+                SqliteCommand deleteCommand = new SqliteCommand();
+
+                deleteCommand.Connection = db;
+
+                deleteCommand.CommandText = "DELETE FROM NoteTable WHERE Title = @Title;";
+                deleteCommand.Parameters.AddWithValue("@Title", title);               
+
+                deleteCommand.ExecuteReader();
+
+                db.Close();
+            }
+
+        }
+
         public void LoadNotes(NoteViewModel noteViewModel)
         {
             List<string> TitleList = new List<string>();
@@ -170,8 +193,8 @@ namespace LocalNote.Repositories
 
                //db.Close();
             }
-
-
         }
+
+        
     }
 }

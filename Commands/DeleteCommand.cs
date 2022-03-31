@@ -18,6 +18,7 @@ namespace LocalNote.Commands
         //pass in the reference to the object
         private ViewModels.NoteViewModel _noteViewModel;
         private NotesRepo _notesRepo;
+       // private DataRepository _dataRepository;
 
         public DeleteCommand(ViewModels.NoteViewModel noteViewModel)
         {
@@ -33,31 +34,39 @@ namespace LocalNote.Commands
         }
 
         public async void Execute(object parameter)
-        {
-            string updateContents = _noteViewModel.getContents();            
+        {                           
 
             //instantiate new instance of our dialog box
             DeleteNoteDialog1 deleteDialog = new DeleteNoteDialog1();     
           
             ContentDialogResult result = await deleteDialog.ShowAsync();   
-
-            string newContent = _noteViewModel.getContents();
-
-
+      
             if (result == ContentDialogResult.Primary) 
             {
-                //grab the path to the file
-                string path = ApplicationData.Current.LocalFolder.Path;
-
-                DirectoryInfo dinfo = new DirectoryInfo(@path);
-                FileInfo[] Files = dinfo.GetFiles("*");
-
                 //grab the title of the selected note
                 string selectedTitle = _noteViewModel.getTitle();
 
-                //call delete function from repo class
-                Repositories.NotesRepo.DeleteFile(_noteViewModel.SelectedNote, selectedTitle, _noteViewModel);
+                Repositories.DataRepository.DeleteNote(selectedTitle);
 
+                try
+                {
+                    
+                    ContentDialog deletedDialog = new ContentDialog()
+                    {
+                        Content = "Note was deleted",
+                        Title = "Delete Succesful",
+                        PrimaryButtonText = "Ok"
+                    };
+                    await deletedDialog.ShowAsync();
+                    _noteViewModel.removeNote();
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error when attempting to delete the file");
+                }
+
+                //reset state
                 _noteViewModel.mpNewNote();
 
             }

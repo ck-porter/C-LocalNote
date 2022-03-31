@@ -198,7 +198,7 @@ namespace LocalNote.ViewModels
             //clear the list and collection, then reload
             _allNotes.Clear();
             Notes.Clear();
-            notesRepo.loadFiles(this);
+            dataRepository.LoadNotes(this);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("vmContent"));
 
         }

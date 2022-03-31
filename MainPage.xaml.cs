@@ -41,7 +41,6 @@ namespace LocalNote
             this.dataRepository = new DataRepository();
             dataRepository.InitializeDatabase();
 
-
             this.NoteViewModel = new ViewModels.NoteViewModel();
             NoteViewModel.MainPage = this;
             //starting postion
