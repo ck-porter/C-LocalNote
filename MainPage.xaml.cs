@@ -94,6 +94,10 @@ namespace LocalNote
             return ContentBox.Text;
 
         }
-              
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(About));
+        }
     }
 }

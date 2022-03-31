@@ -34,9 +34,9 @@ namespace LocalNote.Commands
 
         public async void Execute(object parameter)
         {
-            AboutDialog aboutDialog = new AboutDialog();
-            ContentDialogResult result = await aboutDialog.ShowAsync();                
-                
+            //AboutDialog aboutDialog = new AboutDialog();
+            //ContentDialogResult result = await aboutDialog.ShowAsync();                
+            //Frame.Navigate(typeof(About));
         }
     }
 }
